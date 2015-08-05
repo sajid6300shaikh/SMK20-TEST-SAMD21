@@ -97,7 +97,7 @@ src/LCDAdvanced.d src/LCDAdvanced.o: ../src/LCDAdvanced.c \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
  ../src/ASF/common/utils/interrupt.h \
  ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h \
- ../src/LCDAdvanced.h
+ ../src/LCDAdvanced.h ../src/MatrixKeypad.h
 
 ../src/CharLCD.h:
 
@@ -302,3 +302,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h:
 
 ../src/LCDAdvanced.h:
+
+../src/MatrixKeypad.h:

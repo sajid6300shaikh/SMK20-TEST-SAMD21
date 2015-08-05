@@ -1,8 +1,9 @@
 #define ARROW	127
-#define LCDCOLS	21
+#define LCDCOLS	20
 #define LCDROWS	4
 #define MenuSize(a)	sizeof(a)/LCDCOLS
 
-
-//uint8_t LCD_MenuHandle(const char MenuOptions[][LCDCOLS]);//, uint8_t TotalOptions, uint8_t NoofOptionstoScroll, uint8_t Index){
-//void LCD_MenuDisplay(const char MenuOptions[][LCDCOLS], uint8_t StartLine);
+void LCD_DispFourOptionsIncrementingFrom(uint8_t StartLine, const char MenuOptions[][LCDCOLS]);
+void LCD_DispMenuArrow(uint8_t Row);
+int8_t CheckMenuIndexBounds(int8_t MenuIndex, int8_t TotalOptions);
+uint8_t LCD_MenuHandle(uint8_t TotalOptions, const char MenuOptions[][LCDCOLS]);

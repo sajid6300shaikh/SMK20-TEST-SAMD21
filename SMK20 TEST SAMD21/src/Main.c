@@ -45,26 +45,21 @@ const char MSG[][LCDCOLS]={	{"1. Line in Lcd disp"},
 					  
 const char ms[]={"Hello world"};
 
-const char CalibrationMenu[][21]=
-					{	
-						{"  Calibration of:  "},	//0
-						{"1.Absolute Pressure"},	//1
-						{"2.Parti. Orif.DP   "},	//2
-						{"3.Gaseous Orif.DP  "},	//3
-						{"4.Pitot DP         "},	//4
-						{"5.Stack-T/C        "},	//5
-						{"6.Ambient Temp.    "},	//6
-						{"7.Meter Temp.      "},	//7
-						{"8.Auxillary Temp.  "},	//8
-						{"9.Particulate Flow "},	//9
-						{"10.Gaseous Flow    "}		//10			
+const char CalibrationMenu[][20]=
+					{								
+						{"1.Absolute Pressure"},	//0
+						{"2.Parti. Orif.DP   "},	//1
+						{"3.Gaseous Orif.DP  "},	//2
+						{"4.Pitot DP         "},	//3
+						{"5.Stack-T/C        "},	//4
+						{"6.Ambient Temp.    "},	//5
+						{"7.Meter Temp.      "},	//6
+						{"8.Auxillary Temp.  "},	//7
+						{"9.Particulate Flow "},	//8
+						{"10.Gaseous Flow    "},	//9	
+					
 							
 					};
-
-
-					
-
-
 
 
 
@@ -174,24 +169,6 @@ void DoAutoZero(void){
 	WaitFor(EnterKey);
 }
 
-uint8_t LCD_MenuHandle(const char MenuOptions[][LCDCOLS])//, uint8_t TotalOptions, uint8_t NoofOptionstoScroll, uint8_t Index){
-	{
-		//volatile uint8_t TotalOptions=sizeof(MenuOptions);
-		//uint8_t ScrollStartRow= LCDRows+1-NoofItemstoScroll;
-		
-		LCD_Print(MenuOptions[4]);
-		
-		
-		
-		return(0);
-	}
-
-
-void LCD_MenuDisplay(const char MenuOptions[][LCDCOLS], uint8_t StartLine){
-	//	LCD_FullDisp(MenuOptions[StartLine]);
-
-	}
-
 
 int main (void)
 {
@@ -202,7 +179,7 @@ int main (void)
 
 	Config_LCD();	
 	
-	Disp_IntroLcdMsgs();	//Display company name, model name 
+	//Disp_IntroLcdMsgs();	//Display company name, model name 
 	//DoAutoZero();
 	LCD_Clrscr();
 	#endif
@@ -210,13 +187,21 @@ int main (void)
 	LCD_DataWrite(ARROW);
 	
 	LCD_Setcursor(1,1);
-	LCD_CursorOn();
-//	LCD_MenuHandle(MSG);
+
+	
+	//LCD_CursorOn();
+	
+volatile uint8_t selected=LCD_MenuHandle(MenuSize(CalibrationMenu),CalibrationMenu);
 //	LCD_FullDisp(MSG[0],MSG[1],MSG[2],MSG[3]);
-	LCD_FullDisp(CalibrationMenu[0],CalibrationMenu[1],CalibrationMenu[2],CalibrationMenu[3]);
-	LCD_MenuDisplay(CalibrationMenu, 4);
+//	LCD_FullDisp(CalibrationMenu[0],CalibrationMenu[1],CalibrationMenu[2],CalibrationMenu[3]);
+//	LCD_MenuDisplay(CalibrationMenu, 4);
+
+	LCD_Clrscr();
+	LCD_Setcursor(1,2);
+	LCD_DispAscii(selected);
 while (1)
 {
+		
 }
 	// Insert application code here, after the board has been initialized.
 }

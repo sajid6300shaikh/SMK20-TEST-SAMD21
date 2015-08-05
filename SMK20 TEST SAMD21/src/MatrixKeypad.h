@@ -42,6 +42,7 @@ while(EnterKey==0)
  }*/
 
 /************************************************************************/
+//usage WaitFor(EnterKey);
 #define	WaitFor(i) \
 ClearKeys();\
 while(i==0){\

@@ -150,7 +150,7 @@ void LCD_CmdWrite(uint8_t Command){
 }
 
 
-void LCD_Print(const unsigned char *str)	//usage: LCD_disp("Hello World");
+void LCD_Print(const char *str)	//usage: LCD_disp("Hello World");
 {
 	while(*str) 			//Till string ends
 	LCD_DataWrite(*str++); 	//Send characters one by one
@@ -159,7 +159,7 @@ void LCD_DispAscii(char a){	//adds 48 offset to data before sending to LCD, can 
 	LCD_DataWrite(a+48);
 }
 
-void LCD_FullDisp(const unsigned char *str0,const unsigned char *str1,const unsigned char *str2,const unsigned char *str3 )	//pass a string for each row	
+void LCD_FullDisp(const char *str0,const char *str1,const char *str2,const char *str3 )	//pass a string for each row	
 {			
 	
 //Fills all four lines of LCD with the passed strings msg.
