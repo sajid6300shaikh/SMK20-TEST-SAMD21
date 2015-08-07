@@ -20,11 +20,15 @@ volatile bool	StopKey;
 volatile bool	UpdateKey;
 volatile bool	EnterKey;
 
-//Alternate names
-#define StoreKey	EnterKey
+//Alternate functions of above keys
+#define EscKey		ParaKey
+#define PrevKey		RunKey
 #define IncrKey		StartKey
 #define DecrKey		StopKey
-//////////////////////////////////////////////////////////////////////////
+#define NextKey		UpdateKey
+#define StoreKey	EnterKey
+
+//----------------------------------------------------------------------------
 #define debounce_ms 20		//milliseconds to wait between two scan to confirm key press and debounce keys.
 #define NoKeyDetected !KeyDetected
 

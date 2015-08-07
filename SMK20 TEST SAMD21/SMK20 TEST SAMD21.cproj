@@ -207,7 +207,7 @@
     <com_atmel_avrdbg_tool_edbg>
       <ToolOptions>
         <InterfaceProperties>
-          <SwdClock>1070000</SwdClock>
+          <SwdClock>1190000</SwdClock>
         </InterfaceProperties>
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
@@ -497,6 +497,12 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\UserInterface.C">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\UserInterface.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\sam0\utils\stdio\stdio_serial\stdio_serial.h">
       <SubType>compile</SubType>
     </None>

@@ -10,6 +10,7 @@
 //#define BypassLCD
 
 #include <asf.h>
+#include <math.h>
 #include "GlobalVarsnPrototypes.h"
 #include "Delay.h"
 #include "S_PORT.h"
@@ -20,10 +21,7 @@
 #include "ExtADC.h"
 #include "LCDAdvanced.h"
 #include "Calculation.h"
-
-
-
-
+#include "UserInterface.h"
 
 
 void config_timer(void);
@@ -51,7 +49,7 @@ const char CalibrationMenu[][20]=
 						{"2.Parti. Orif.DP   "},	//1
 						{"3.Gaseous Orif.DP  "},	//2
 						{"4.Pitot DP         "},	//3
-						{"5.Stack-T/C        "},	//4
+						{"5.Stack ThermoCup  "},	//4
 						{"6.Ambient Temp.    "},	//5
 						{"7.Meter Temp.      "},	//6
 						{"8.Auxillary Temp.  "},	//7
@@ -77,14 +75,11 @@ void Config_Contrast_PWM(void){
 	//Reset Timer
 	REG_TC5_CTRLA=(1<<0);	
 	//	Start Timer
-	REG_TC5_CTRLBSET=(1<<6);
-	
+	REG_TC5_CTRLBSET=(1<<6);	
 	//PWM output pin
-	pinMux(PB15,ETCmux);			
-	
+	pinMux(PB15,ETCmux);				
 					//presync |prescale|wave mode|TC Mode| Enable
-	REG_TC5_CTRLA = (0<<12) | (5<<8) | (2<<5) | (1<<2) | (1<<1);
-	
+	REG_TC5_CTRLA = (0<<12) | (5<<8) | (2<<5) | (1<<2) | (1<<1);	
 	//127 =50%, will need value from EEPROM
 	REG_TC5_COUNT8_CC1= 127;	 //This register's not enable protected
 }
@@ -169,18 +164,29 @@ void DoAutoZero(void){
 	WaitFor(EnterKey);
 }
 
+typedef struct{	
+	uint8_t BCD1;
+	uint8_t BCD2;
+	uint8_t BCD3;
+	uint8_t BCD4;
+	uint8_t BCD5;
+}BCDStruct;
+
+volatile BCDStruct BCDGrp1, BCDgrp2, BCDGrp2;	//for general global usage 
+
+
 
 int main (void)
 {
 	system_init();
-	
+
 	Config_MatrixKeypad();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 	#ifndef BypassLCD
 
 	Config_LCD();	
-	
-	//Disp_IntroLcdMsgs();	//Display company name, model name 
-	//DoAutoZero();
+
+//	Disp_IntroLcdMsgs();	//Display company name, model name 
+//	DoAutoZero();
 	LCD_Clrscr();
 	#endif
 	LCD_Setcursor(3,20);
@@ -188,23 +194,27 @@ int main (void)
 	
 	LCD_Setcursor(1,1);
 
-	
+
 	//LCD_CursorOn();
 	
-volatile uint8_t selected=LCD_MenuHandle(MenuSize(CalibrationMenu),CalibrationMenu);
+//volatile uint8_t selected=LCD_MenuHandle(MenuSize(CalibrationMenu),CalibrationMenu);
 //	LCD_FullDisp(MSG[0],MSG[1],MSG[2],MSG[3]);
 //	LCD_FullDisp(CalibrationMenu[0],CalibrationMenu[1],CalibrationMenu[2],CalibrationMenu[3]);
 //	LCD_MenuDisplay(CalibrationMenu, 4);
-
+	
 	LCD_Clrscr();
 	LCD_Setcursor(1,2);
-	LCD_DispAscii(selected);
+	LCD_CursorOn();
+	
+	//LCD_DispAscii(selected);
+//	LCD_DispVariable(12345,2,10,0,1);
+
+	Ambient_PT100.STDvalue=10021;
+	uint32_t ans=GetNumDataFromUser(327648,4,7,1,10);
+	LCD_DispVariable(ans, 2, 7, 3, 10);
+
 while (1)
-{
-		
+{		
 }
 	// Insert application code here, after the board has been initialized.
 }
-
-
-

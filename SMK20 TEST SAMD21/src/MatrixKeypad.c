@@ -21,7 +21,7 @@ void Config_MatrixKeypad(){	//call this once in your program
 }
 
 void ClearKeys(){
-	ParaKey =0;
+	ParaKey	=0;
 	RunKey	=0;
 	StartKey=0;
 	StopKey	=0;

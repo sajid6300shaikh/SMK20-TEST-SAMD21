@@ -1,4 +1,4 @@
-src/Main.d src/Main.o: ../src/Main.c ../src/asf.h \
+src/UserInterface.d src/UserInterface.o: ../src/UserInterface.C \
  ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
@@ -96,36 +96,8 @@ src/Main.d src/Main.o: ../src/Main.c ../src/asf.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
  ../src/ASF/common/utils/interrupt.h \
- ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h \
- ../src/ASF/common/boards/board.h \
- ../src/ASF/sam0/boards/samd21_xplained_pro/samd21_xplained_pro.h \
- ../src/config/conf_board.h ../src/ASF/sam0/drivers/port/port.h \
- ../src/ASF/sam0/drivers/system/pinmux/pinmux.h \
- ../src/ASF/sam0/drivers/sercom/sercom.h \
- ../src/ASF/sam0/drivers/system/system.h \
- ../src/ASF/sam0/drivers/system/clock/clock.h \
- ../src/ASF/sam0/drivers/system/clock/gclk.h \
- ../src/ASF/sam0/drivers/system/clock/clock_samd21_r21/clock_feature.h \
- ../src/ASF/sam0/drivers/system/power/power_sam_d_r/power.h \
- ../src/ASF/sam0/drivers/system/reset/reset_sam_d_r/reset.h \
- ../src/ASF/sam0/drivers/system/interrupt/system_interrupt.h \
- ../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21/system_interrupt_features.h \
- ../src/ASF/sam0/drivers/sercom/sercom_pinout.h \
- ../src/ASF/sam0/drivers/sercom/sercom_interrupt.h \
- ../src/ASF/sam0/drivers/sercom/sercom.h \
- ../src/ASF/sam0/drivers/sercom/usart/usart.h \
- ../src/ASF/sam0/drivers/sercom/usart/usart_interrupt.h \
- ../src/ASF/sam0/drivers/sercom/usart/usart.h \
- ../src/ASF/sam0/utils/stdio/stdio_serial/stdio_serial.h \
- ../src/ASF/common/services/serial/serial.h \
- ../src/ASF/common/services/serial/sam0_usart/usart_serial.h \
- ../src/CharLCD.h ../src/S_PORT.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../src/GlobalVarsnPrototypes.h ../src/Delay.h ../src/S_GCLOCK.h \
- ../src/CharLCD.h ../src/MatrixKeypad.h ../src/ExtADC.h \
- ../src/LCDAdvanced.h ../src/Calculation.h ../src/UserInterface.h
-
-../src/asf.h:
+ ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h ../src/CharLCD.h \
+ ../src/S_PORT.h ../src/MatrixKeypad.h ../src/UserInterface.h
 
 ../src/ASF/sam0/utils/compiler.h:
 
@@ -325,72 +297,10 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h:
 
-../src/ASF/common/boards/board.h:
-
-../src/ASF/sam0/boards/samd21_xplained_pro/samd21_xplained_pro.h:
-
-../src/config/conf_board.h:
-
-../src/ASF/sam0/drivers/port/port.h:
-
-../src/ASF/sam0/drivers/system/pinmux/pinmux.h:
-
-../src/ASF/sam0/drivers/sercom/sercom.h:
-
-../src/ASF/sam0/drivers/system/system.h:
-
-../src/ASF/sam0/drivers/system/clock/clock.h:
-
-../src/ASF/sam0/drivers/system/clock/gclk.h:
-
-../src/ASF/sam0/drivers/system/clock/clock_samd21_r21/clock_feature.h:
-
-../src/ASF/sam0/drivers/system/power/power_sam_d_r/power.h:
-
-../src/ASF/sam0/drivers/system/reset/reset_sam_d_r/reset.h:
-
-../src/ASF/sam0/drivers/system/interrupt/system_interrupt.h:
-
-../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21/system_interrupt_features.h:
-
-../src/ASF/sam0/drivers/sercom/sercom_pinout.h:
-
-../src/ASF/sam0/drivers/sercom/sercom_interrupt.h:
-
-../src/ASF/sam0/drivers/sercom/sercom.h:
-
-../src/ASF/sam0/drivers/sercom/usart/usart.h:
-
-../src/ASF/sam0/drivers/sercom/usart/usart_interrupt.h:
-
-../src/ASF/sam0/drivers/sercom/usart/usart.h:
-
-../src/ASF/sam0/utils/stdio/stdio_serial/stdio_serial.h:
-
-../src/ASF/common/services/serial/serial.h:
-
-../src/ASF/common/services/serial/sam0_usart/usart_serial.h:
-
 ../src/CharLCD.h:
 
 ../src/S_PORT.h:
 
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\math.h:
-
-../src/GlobalVarsnPrototypes.h:
-
-../src/Delay.h:
-
-../src/S_GCLOCK.h:
-
-../src/CharLCD.h:
-
 ../src/MatrixKeypad.h:
-
-../src/ExtADC.h:
-
-../src/LCDAdvanced.h:
-
-../src/Calculation.h:
 
 ../src/UserInterface.h:

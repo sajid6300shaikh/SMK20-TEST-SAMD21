@@ -98,8 +98,8 @@ static inline enum status_code usart_serial_putchar(
 		struct usart_module *const module,
 		uint8_t c)
 {
-	LCD_DataWrite(c);
-	//while(STATUS_OK !=usart_write_wait(module, c));
+	
+	while(STATUS_OK !=usart_write_wait(module, c));
 
 	return STATUS_OK;
 }

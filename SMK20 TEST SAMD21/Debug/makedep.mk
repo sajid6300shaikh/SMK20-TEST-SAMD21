@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\UserInterface.C
+
 src\ASF\sam0\drivers\sercom\sercom.c
 
 src\ASF\sam0\drivers\sercom\sercom_interrupt.c

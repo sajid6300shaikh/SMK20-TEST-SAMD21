@@ -77,5 +77,5 @@ void Disp_IntroLcdMsgs(void);
 void Config_Contrast_PWM(void);
 void DoAutoZero(void);
 void Config_LCD(void);
-
+uint8_t GetData(uint32_t a);
 #endif
