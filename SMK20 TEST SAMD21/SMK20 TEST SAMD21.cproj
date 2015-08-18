@@ -33,6 +33,7 @@
           <option id="sam0.drivers.port" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam0.drivers.system" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam0.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam0.drivers.sercom.i2c.master" value="Add" config="polled" content-id="Atmel.ASF" />
           <option id="common.applications.user_application.xplained_pro2" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.utils" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam0.utils.cmsis.samd21.source.template" value="Add" config="" content-id="Atmel.ASF" />
@@ -192,6 +193,11 @@
           <file path="src/ASF/sam0/drivers/sercom/usart/usart.h" framework="" version="3.21.0" source="sam0\drivers\sercom\usart\usart.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/utils/stdio/read.c" framework="" version="3.21.0" source="sam0\utils\stdio\read.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/utils/stdio/write.c" framework="" version="3.21.0" source="sam0\utils\stdio\write.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam0/drivers/sercom/i2c/i2c_master.h" framework="" version="3.21.0" source="sam0\drivers\sercom\i2c\i2c_master.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam0/drivers/sercom/i2c/i2c_common.h" framework="" version="3.21.0" source="sam0\drivers\sercom\i2c\i2c_common.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam0/drivers/sercom/i2c/quick_start_master/qs_i2c_master_basic_use.h" framework="" version="3.21.0" source="sam0\drivers\sercom\i2c\quick_start_master\qs_i2c_master_basic_use.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam0/drivers/sercom/i2c/quick_start_master_dma/qs_i2c_master_dma.h" framework="" version="3.21.0" source="sam0\drivers\sercom\i2c\quick_start_master_dma\qs_i2c_master_dma.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.c" framework="" version="3.21.0" source="sam0\drivers\sercom\i2c\i2c_samd21_r21_d10_d11_l21\i2c_master.c" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.21.0/common.applications.user_application.xplained_pro2.samd21_xplained_pro/html/index.html" />
         <offline-documentation help="" />
@@ -231,6 +237,7 @@
       <Value>__SAMD21J18A__</Value>
       <Value>ARM_MATH_CM0=true</Value>
       <Value>USART_CALLBACK_MODE=true</Value>
+      <Value>I2C_MASTER_CALLBACK_MODE=false</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.DefaultIncludePath>False</armgcc.compiler.directories.DefaultIncludePath>
@@ -265,6 +272,8 @@
       <Value>../src/ASF/common/services/serial</Value>
       <Value>../src/ASF/sam0/drivers/sercom</Value>
       <Value>../src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -287,7 +296,7 @@
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam0/utils/linker_scripts/samd21/gcc/samd21j18a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0=true -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DUSART_CALLBACK_MODE=true</armgcc.preprocessingassembler.general.AssemblerFlags>
+  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0=true -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DUSART_CALLBACK_MODE=true -DI2C_MASTER_CALLBACK_MODE=false</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.DefaultIncludePath>False</armgcc.preprocessingassembler.general.DefaultIncludePath>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
@@ -320,6 +329,8 @@
       <Value>../src/ASF/common/services/serial</Value>
       <Value>../src/ASF/sam0/drivers/sercom</Value>
       <Value>../src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -340,6 +351,7 @@
       <Value>__SAMD21J18A__</Value>
       <Value>ARM_MATH_CM0=true</Value>
       <Value>USART_CALLBACK_MODE=true</Value>
+      <Value>I2C_MASTER_CALLBACK_MODE=false</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.DefaultIncludePath>False</armgcc.compiler.directories.DefaultIncludePath>
@@ -374,6 +386,8 @@
       <Value>../src/ASF/common/services/serial</Value>
       <Value>../src/ASF/sam0/drivers/sercom</Value>
       <Value>../src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -381,7 +395,7 @@
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
-  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
+  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
   <armgcc.linker.general.UseNewlibNano>True</armgcc.linker.general.UseNewlibNano>
   <armgcc.linker.libraries.Libraries>
     <ListValues>
@@ -399,7 +413,7 @@
   <armgcc.linker.memorysettings.ExternalRAM />
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam0/utils/linker_scripts/samd21/gcc/samd21j18a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
-  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0=true -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DUSART_CALLBACK_MODE=true</armgcc.preprocessingassembler.general.AssemblerFlags>
+  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0=true -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DUSART_CALLBACK_MODE=true -DI2C_MASTER_CALLBACK_MODE=false</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.DefaultIncludePath>False</armgcc.preprocessingassembler.general.DefaultIncludePath>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
@@ -432,6 +446,8 @@
       <Value>../src/ASF/common/services/serial</Value>
       <Value>../src/ASF/sam0/drivers/sercom</Value>
       <Value>../src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -455,6 +471,10 @@
     <Folder Include="src\ASF\sam0\drivers\port\" />
     <Folder Include="src\ASF\sam0\drivers\port\quick_start\" />
     <Folder Include="src\ASF\sam0\drivers\sercom\" />
+    <Folder Include="src\ASF\sam0\drivers\sercom\i2c\" />
+    <Folder Include="src\ASF\sam0\drivers\sercom\i2c\i2c_samd21_r21_d10_d11_l21\" />
+    <Folder Include="src\ASF\sam0\drivers\sercom\i2c\quick_start_master\" />
+    <Folder Include="src\ASF\sam0\drivers\sercom\i2c\quick_start_master_dma\" />
     <Folder Include="src\ASF\sam0\drivers\sercom\usart\" />
     <Folder Include="src\ASF\sam0\drivers\sercom\usart\quick_start\" />
     <Folder Include="src\ASF\sam0\drivers\sercom\usart\quick_start_callback\" />
@@ -497,6 +517,30 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\ASF\sam0\drivers\sercom\i2c\i2c_master.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\sam0\drivers\sercom\i2c\i2c_common.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\sam0\drivers\sercom\i2c\quick_start_master\qs_i2c_master_basic_use.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\sam0\drivers\sercom\i2c\quick_start_master_dma\qs_i2c_master_dma.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam0\drivers\sercom\i2c\i2c_samd21_r21_d10_d11_l21\i2c_master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\EEPmap.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\EEProm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\EEProm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\UserInterface.C">
       <SubType>compile</SubType>
     </Compile>

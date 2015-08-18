@@ -1,7 +1,11 @@
 #include "compiler.h"
 
-#ifndef GlobalsIncluded
-#define GlobalsIncluded
+#ifndef _Globals_Included
+#define _Globals_Included
+
+
+
+
 
 
 /********************************************************************************************************************************************/
@@ -47,13 +51,13 @@ typedef struct{
 	uint16_t STDvalue;	
 	}AZSensors;	//auto zero sensors
 
-volatile AZSensors Orifice_DP, Orifice_Gas_DP, Pitot_DP;
+volatile AZSensors OrifPart_DP, OrifGas_DP, Pitot_DP, Stack_TC;
 
 typedef struct{
 	//current read ADC value
 	int32_t AdcCount;
 	//Minimum values will be stored during calibration when sensors are subjected to certain minimum physical input
-	//ADCMin count will be positive (and can be more than 16 bit) for PT100 and absolute pressure but can be negative for TC
+	//ADCMin count will be positive (and can be more than 15 bit magnitude) for PT100 and absolute pressure but can be negative for TC
 	int32_t ADCLower;
 	//STDMin is actual Minimum value in physical units
 	uint16_t STDLower;
@@ -70,7 +74,9 @@ typedef struct{
 	uint16_t STDvalue; 
 }nAZSensors; //non Auto zero sensors
 
-volatile nAZSensors Absolute_Pres, Stack_TC, Orifice_PT100, Ambient_PT100, Aux_PT100;
+volatile nAZSensors Absolute_Pres, Orifice_PT100, Ambient_PT100, Aux_Temp;
+
+
 
 void Set_LcdContrast(uint8_t ContrastValue);
 void Disp_IntroLcdMsgs(void);

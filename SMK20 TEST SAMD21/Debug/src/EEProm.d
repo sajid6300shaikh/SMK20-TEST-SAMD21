@@ -1,4 +1,4 @@
-src/Main.d src/Main.o: ../src/Main.c ../src/asf.h \
+src/EEProm.d src/EEProm.o: ../src/EEProm.c ../src/asf.h \
  ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
@@ -122,12 +122,8 @@ src/Main.d src/Main.o: ../src/Main.c ../src/asf.h \
  ../src/ASF/sam0/utils/stdio/stdio_serial/stdio_serial.h \
  ../src/ASF/common/services/serial/serial.h \
  ../src/ASF/common/services/serial/sam0_usart/usart_serial.h \
- ../src/CharLCD.h ../src/S_PORT.h \
- c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../src/GlobalVarsnPrototypes.h ../src/Delay.h ../src/S_GCLOCK.h \
- ../src/CharLCD.h ../src/EEProm.h ../src/MatrixKeypad.h ../src/ExtADC.h \
- ../src/LCDAdvanced.h ../src/Calculation.h ../src/UserInterface.h \
- ../src/EEPmap.h
+ ../src/CharLCD.h ../src/S_PORT.h ../src/EEProm.h ../src/Delay.h \
+ ../src/CharLCD.h
 
 ../src/asf.h:
 
@@ -385,26 +381,8 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/S_PORT.h:
 
-c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\math.h:
-
-../src/GlobalVarsnPrototypes.h:
+../src/EEProm.h:
 
 ../src/Delay.h:
 
-../src/S_GCLOCK.h:
-
 ../src/CharLCD.h:
-
-../src/EEProm.h:
-
-../src/MatrixKeypad.h:
-
-../src/ExtADC.h:
-
-../src/LCDAdvanced.h:
-
-../src/Calculation.h:
-
-../src/UserInterface.h:
-
-../src/EEPmap.h:

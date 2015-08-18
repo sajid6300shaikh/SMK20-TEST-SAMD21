@@ -11,12 +11,13 @@ Many cursor options, Custom Character Building, etc
 #include "CharLCD.h"
 #include "Delay.h"
 
-
 	
 void LCD_Init(void)
 {
 //First Setup All port pins properly
 //Setup port as output and pin LCD_D7 as output with input read enable.
+pinMode(LCD_EN, OUTPUT);
+PinClr(LCD_EN);
 pinMode(LCD_D4, OUTPUT);		//D4
 pinMode(LCD_D5, OUTPUT);		//D5
 pinMode(LCD_D6, OUTPUT);		//D6
@@ -24,35 +25,40 @@ pinMode(LCD_D7, OUTPUT);		//D7, will be changed when we need to read back busy f
 
 pinMode(LCD_RS, OUTPUT);
 pinMode(LCD_RWb, OUTPUT);
-pinMode(LCD_EN, OUTPUT);
+
 //------------------------------------------------------------------------
 
  _data_pins[0] = LCD_D4;
  _data_pins[1] = LCD_D5;
  _data_pins[2] = LCD_D6;
  _data_pins[3] = LCD_D7;
+ 
+	
 	// Select the Command Register by pulling RS pin LOW
 	PinClr(LCD_RS);
 	// Select the Write Operation  by pulling RW pin LOW
 	PinClr(LCD_RWb);
+	
 
 //LCD commands start here
 
 	delay_ms(100);		//w8 for power rail to stabilize
 	
+		LCD_CmdWrite(0x08);		//Turn off display, very important for OLED
+		checkbusy();
+		
 	write4bits(0x03);	//put LCD in 8 bit mode
-	delay_ms(40);
+	delay_ms(100);
 	
 	write4bits(0x03);	//again
-	delay_ms(40);
+	delay_ms(100);
 	
 	write4bits(0x03);	//again
-	delay_ms(30);
+	delay_ms(100);
 	
 	write4bits(0x02);  //Initialize the LCD in 4bit Mode
-	delay_ms(50);
-	
-	
+	delay_ms(100);
+			
 	LCD_CmdWrite(0x28);	//LCD in 4 bit, 2 lines, 5x8 dots 
 	checkbusy();
 
@@ -60,6 +66,7 @@ pinMode(LCD_EN, OUTPUT);
 	LCD_CmdWrite(0x08);		//Turn off display, very important for OLED
 	checkbusy();	
 	//  [7/25/2015 sajid]
+	//LCD_PowerOff();
 	
 	LCD_CmdWrite(0x06);		//Entry mode:Increment, No display shift
 	checkbusy();
@@ -80,6 +87,7 @@ void PulseLCD_EN(void){
 	delay_us(ENPulse);
 	PinClr(LCD_EN);
 }
+
 void LCD_Setcursor(char Row, char Column)	
 //pass row and column no to this function
 //for eg. LCD_Setcursor(1,15), for row 1st and column 15 on LCD, since numbering here starts from 0.
@@ -111,7 +119,7 @@ void write4bits(uint8_t value)
 		pinMode(_data_pins[i], OUTPUT);
 		digitalWrite(_data_pins[i], (value >> i) & 0x01);
 	}
-	delay_us(2);
+	delay_us(5);
 	PulseLCD_EN();
 }
 
@@ -137,7 +145,6 @@ void LCD_Putchar(char Data){
 	checkbusy();
 }
 
-
 void LCD_CmdWrite(uint8_t Command){
 	// Select the Command Register by pulling RS pin LOW
 	PinClr(LCD_RS);
@@ -155,6 +162,15 @@ void LCD_Print(const char *str)	//usage: LCD_disp("Hello World");
 	while(*str) 			//Till string ends
 	LCD_DataWrite(*str++); 	//Send characters one by one
 }
+
+void LCD_OneLine(uint8_t Row, const char *str)	//usage: LCD_disp(2, "Hello World"); to display on 2nd line
+{
+	LCD_Setcursor(Row,1);
+	while(*str) 			//Till string ends
+	LCD_DataWrite(*str++); 	//Send characters one by one
+}
+
+
 void LCD_DispAscii(char a){	//adds 48 offset to data before sending to LCD, can be used to print single digit no on LCD
 	LCD_DataWrite(a+48);
 }
@@ -231,7 +247,7 @@ void LCD_build2(){			//polltech Symbol
 	LCD_DataWrite(0x00); //Load row 8 data
 }
 
-void LCD_Frame(){
+void LCD_Frame1(){
 	LCD_Setcursor(1,1);
 	LCD_DataWrite(255);
 	LCD_Print("==================");
@@ -255,6 +271,24 @@ void LCD_Frame(){
 	LCD_DataWrite(0);
 }
 
+#define frmcornr	'-'
+void LCD_Frame2(){				//ANOTHER FRAME FOR GENERAL PURPOSE
+	LCD_Setcursor(1,1);
+	LCD_Print("--------------------");
+	
+	LCD_Setcursor(4,1);
+	LCD_Print("____________________");
+	
+	//LCD_Setcursor(2,1);
+	//LCD_DataWrite('|');		// '|' symbol
+	//LCD_Setcursor(2,20);
+	//LCD_DataWrite('|');
+	//LCD_Setcursor(3,1);
+	//LCD_DataWrite('|');
+	//LCD_Setcursor(3,20);
+	//LCD_DataWrite('|');
+}
+
 void LCD_CursorOn(){
 	LCD_CmdWrite(0x0E);
 }
@@ -269,6 +303,7 @@ void LCD_CursorBlink(){
 
 void LCD_Clrscr(){
 	LCD_CmdWrite(0x01);
+	LCD_Setcursor(1,1);
 }
 void LCD_PowerOff(){
 //  [7/25/2015 sajid]

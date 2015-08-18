@@ -47,16 +47,28 @@ while(EnterKey==0)
 
 /************************************************************************/
 //usage WaitFor(EnterKey);
-#define	WaitFor(i) \
+#define	WaitFor(ikey) \
 ClearKeys();\
-while(i==0){\
+while(ikey==0){\
 	Keyscan();\
 }
+
+/************************************************************************/
+/* Multi Line MACRO.
+This Function will loop untill said key is released
+Usage:
+Release(EnterKey);*/
+/************************************************************************/
+#define Release(ikey)\
+do \
+{Keyscan();\
+} while (ikey==1);\
 	
 void ClearKeys(void);
 bool KeyDetected(void);
 void Config_MatrixKeypad(void);
 void Keyscan(void);
+void KeyscanWORelese();
 void LoopUntilEnterPressed(void);
 
 #endif

@@ -11,23 +11,23 @@ uint32_t Zero_Correction(int32_t AdcCount, int32_t	ZeroCount){
 /************************************************************************/
 void ComputeEquation_ofall_Sensors(void){
 	//AZ sensors requiring Slope from 1 point equation
-	Orifice_DP.Slope	=ComputeSlopefrom1point(&Orifice_DP);
-	Orifice_Gas_DP.Slope=ComputeSlopefrom1point(&Orifice_Gas_DP);
-	Pitot_DP.Slope		=ComputeSlopefrom1point(&Pitot_DP);
+	OrifPart_DP.Slope	= ComputeSlopefrom1point(&OrifPart_DP);
+	OrifGas_DP.Slope	= ComputeSlopefrom1point(&OrifGas_DP);
+	Pitot_DP.Slope		= ComputeSlopefrom1point(&Pitot_DP);
+	Stack_TC.Slope		= ComputeSlopefrom1point(&Stack_TC);
 	
 	//nAZ sensors requiring slope form 2 point equation
-	Absolute_Pres.Slope	=ComputeSlopefrom2Point(&Absolute_Pres);
-	Stack_TC.Slope		=ComputeSlopefrom2Point(&Stack_TC);
-	Orifice_PT100.Slope	=ComputeSlopefrom2Point(&Orifice_PT100);
-	Ambient_PT100.Slope	=ComputeSlopefrom2Point(&Ambient_PT100);
-	Aux_PT100.Slope		=ComputeSlopefrom2Point(&Aux_PT100);
+	Absolute_Pres.Slope	= ComputeSlopefrom2Point(&Absolute_Pres);	
+	Orifice_PT100.Slope	= ComputeSlopefrom2Point(&Orifice_PT100);
+	Ambient_PT100.Slope	= ComputeSlopefrom2Point(&Ambient_PT100);
+	Aux_Temp.Slope		= ComputeSlopefrom2Point(&Aux_Temp);
 	
 	//nAZ Sensors requiring Intercept form Slope-point equation
-	Absolute_Pres.Intercept	=ComputeIntercept(&Absolute_Pres);
-	Stack_TC.Intercept		=ComputeIntercept(&Stack_TC);
-	Orifice_PT100.Intercept	=ComputeIntercept(&Orifice_PT100);
-	Ambient_PT100.Intercept	=ComputeIntercept(&Ambient_PT100);
-	Aux_PT100.Intercept		=ComputeIntercept(&Aux_PT100);
+	Absolute_Pres.Intercept	= ComputeIntercept(&Absolute_Pres);
+	Orifice_PT100.Intercept	= ComputeIntercept(&Orifice_PT100);
+	Ambient_PT100.Intercept	= ComputeIntercept(&Ambient_PT100);
+	Aux_Temp.Intercept		= ComputeIntercept(&Aux_Temp);
+	
 }
 
 

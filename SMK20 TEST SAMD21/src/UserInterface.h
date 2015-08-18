@@ -5,7 +5,7 @@ uint32_t CombineDigitstoNumber(int8_t Digit[], int8_t NoofDigits);
 void LCD_DispVariable(uint32_t Number, char DecimalPos, uint8_t NoofDigitsToDisplay, char Row, char Col);
 int8_t CheckDigitBound(int8_t Num);
 uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col);
-
+int32_t GetNumDataFromUserWithESC(int32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col);
 
 
 
@@ -15,6 +15,36 @@ uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t Noo
 /* OLD Test Functions                                                */
 /************************************************************************/
 /*
+void SplitNumbertoDigits(uint32_t Num, int8_t DigitArray[], int8_t NoofDigits)
+{
+	eparates no as
+	DigitArray[0]=
+	//Converts 8,16,32-bit binary no. to BCD to be displayed on screen.	
+	if (NoofDigits>0)
+	DigitArray[0] = Num      - (Num/10)*10;					//Least Significant Digit
+	
+	if (NoofDigits>1)
+	DigitArray[1] = Num/10   - (Num/100)*10;
+	
+	if (NoofDigits>2)
+	DigitArray[2] = Num/100  - (Num/1000)*10;
+	
+	if (NoofDigits>3)
+	DigitArray[3] = Num/1000 - (Num/10000)*10;
+
+	if (NoofDigits>4)
+	DigitArray[4] = Num/10000- (Num/100000)*10;					
+	
+	if (NoofDigits>5)
+	DigitArray[5] = Num/100000 -(Num/1000000)*10;
+	
+	if (NoofDigits>6)
+	DigitArray[6]=	Num/1000000-(Num/10000000)*10;			//most significant digit
+	
+}
+
+
+
 uint32_t Get4DigitData(uint32_t CurrentNum, uint8_t DecimalPos, char Row, char Col){
 	int8_t Digit[4];			//
 	//First Display Current Num on LCD

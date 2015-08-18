@@ -4,18 +4,7 @@
 #include "Delay.h"
 #include "CharLCD.h"
 
-//! [address]
 
-/* Number of times to try to send packet if failed. */
-//! [timeout]
-//! [timeout]
-
-/* Init software module. */
-//! [dev_inst]
-
-//! [dev_inst]
-
-void configure_EEPROM(void);
 
 //! [initialize_i2c]
 void configure_EEPROM(void)
@@ -95,7 +84,7 @@ bool EEP_timeout()
 		if (try==EEPTIMEOUT)
 		{	
 			LCD_Setcursor(1,2);
-			LCD_disp("EEP MB SB fault");
+			LCD_Print("EEP MB SB fault");
 			delay_sec(1);
 			EEP_Reset();
 			return 1;
@@ -191,6 +180,43 @@ uint8_t EEP_ReadByte(uint8_t addr)
 	
 }
 
+
+void EEP_WriteBit(uint8_t addr, bool data){
+	
+	if (data==1)
+		EEP_WriteByte(addr, EEPBoolHigh);
+	
+	else if (data==0)
+		EEP_WriteByte(addr, EEPBoolLow);
+	
+	else
+	{
+		LCD_Setcursor(1,1);
+		LCD_Print("EEP Write Bit Error");
+	}
+
+	
+	
+}
+
+
+bool EEP_ReadBit(uint8_t addr){
+	uint8_t temp=EEP_ReadByte(addr);
+	
+	if (temp==EEPBoolHigh)
+		return true;
+		
+	else if (temp==EEPBoolLow)
+		return false;
+	else
+	{
+		LCD_Setcursor(1,1);
+		LCD_Print("EEP Read Bit Error");	
+	}
+		
+	return 0;	
+}
+
 void EEP_WriteInt(uint8_t addr, uint16_t data){
 	
 	uint8_t lsB = (uint8_t)(data & 0xFFu);				//LS byte
@@ -205,3 +231,7 @@ uint16_t EEP_ReadInt(uint8_t addr){
 	uint8_t lsB = EEP_ReadByte(addr+1);		//MS byte
 	return((msB<<8)|(lsB));
 }
+
+//void EEP_WriteLong(uint8_t addr, uint32_t Data){
+	//uin
+//}

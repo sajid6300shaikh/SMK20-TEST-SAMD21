@@ -62,7 +62,7 @@ void LCD_DispVariable(uint32_t Number, char DecimalPos, uint8_t NoofDigitsToDisp
 
 /************************************************************************/
 /* When a Digit is incremented or decremented by User, it should not go above 9 or below 0
-This function takes care of proper Rolling off.*/
+This function takes care of proper bounds off.*/
 /************************************************************************/
 int8_t CheckDigitBound(int8_t Num){
 	if (Num<0)
@@ -80,33 +80,21 @@ Usage:
 int8_t BCDarray;	//Initialize and array to Store the BCD digits
 SplitNumbertoDigits(Variable, BCDarray, 5);*/
 /************************************************************************/
-void SplitNumbertoDigits(uint32_t Num, int8_t DigitArray[], int8_t NoofDigits)
-{
-	/*separates no as
-	Eg: for 32768. BCD5=3, BCD4=2...*/
-	//Converts 16-bit binary no. to BCD to be displayed on screen.	
-	if (NoofDigits>0)
-	DigitArray[0] = Num      - (Num/10)*10;
+void SplitNumbertoDigits(uint32_t Num, int8_t DigitArray[], int8_t NoofDigits){
 	
-	if (NoofDigits>1)
-	DigitArray[1] = Num/10   - (Num/100)*10;
+	int8_t i=0, val=0;
+	uint32_t Temp=Num;
 	
-	if (NoofDigits>2)
-	DigitArray[2] = Num/100  - (Num/1000)*10;
-	
-	if (NoofDigits>3)
-	DigitArray[3] = Num/1000 - (Num/10000)*10;
-
-	if (NoofDigits>4)
-	DigitArray[4] = Num/10000- (Num/100000)*10;					//most significant digit
-	
-	if (NoofDigits>5)
-	DigitArray[5] = Num/100000 -(Num/1000000)*10;
-	
-	if (NoofDigits>6)
-	DigitArray[6]=	Num/1000000-(Num/10000000)*10;
+	while (i<NoofDigits)
+	{
+		val=Temp%10;
+		DigitArray[i]= val;
+		Temp=Temp/10;
+		i++;
+	}
 	
 }
+
 
 /************************************************************************/
 /* This Fucntion combines BCD digits to form a no.
@@ -151,7 +139,8 @@ uint32_t CombineDigitstoNumber(int8_t Digit[], int8_t NoofDigits){
 Usage:
 uint32_t ans=GetNumDataFromUser(32768,4,5,2,10);      
 Current value of variable will be displayed on LCD with given decimal point 
-and user can edit the value and press enter to store new value of variable*/
+and user can edit the value and press enter to store new value of variable
+5 digit is mostly used and this function can handle maximum of 7 Digits */
 /************************************************************************/
 uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col){
 	int8_t Digit[NoofDigit];
@@ -200,6 +189,67 @@ uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t Noo
 			
 			if (EscKey)
 			return CurrentNum;
+			
+			LCD_Setcursor(Row,NewCol);
+			LCD_DispAscii(Digit[i]);
+			LCD_Setcursor(Row,NewCol);
+		}
+	}
+}
+
+
+/***********************************************************************************/
+/* Gets Numeric data Input from user with the help of Incr, Decr, Next and Prev Key
+When ESC key is pressed it returns -1 instead of current no.
+Made this function to serve the purpose of CALIBRATION PASSWORD CHK.	*/
+/***********************************************************************************/
+int32_t GetNumDataFromUserWithESC(int32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col){
+	int8_t Digit[NoofDigit];
+	//First Display Current Num on LCD
+	LCD_DispVariable(CurrentNum, DecimalPos, NoofDigit, Row, Col);
+	//Separate Digits of num and store it in digit array
+	SplitNumbertoDigits(CurrentNum, Digit, NoofDigit);
+	LCD_CursorOn();
+	int8_t i=NoofDigit-1;
+	uint8_t NewCol=Col;
+	LCD_Setcursor(Row,NewCol);
+	while(1){
+		if (KeyDetected())
+		{
+			Keyscan();
+			if (IncrKey)
+			{
+				Digit[i]++;
+				Digit[i]=CheckDigitBound(Digit[i]);
+			}
+			
+			if (DecrKey)
+			{
+				Digit[i]--;
+				Digit[i]=CheckDigitBound(Digit[i]);
+			}
+			
+			if (NextKey || PrevKey)		//shift cursor to right or left with press of Next or Prev key respectively
+			{
+				if (NextKey)
+				i--;
+				if (PrevKey)
+				i++;
+				
+				if (i>(NoofDigit-1))
+				i=0;
+				if (i<0)
+				i=NoofDigit-1;
+				NewCol=Col+NoofDigit-1-i;
+				if (NewCol>=(Col+NoofDigit-DecimalPos))
+				NewCol++;
+			}
+			
+			if (EnterKey)
+			return CombineDigitstoNumber(Digit,NoofDigit);
+			
+			if (EscKey)
+			return(-1);
 			
 			LCD_Setcursor(Row,NewCol);
 			LCD_DispAscii(Digit[i]);

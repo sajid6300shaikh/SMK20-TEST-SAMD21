@@ -53,14 +53,14 @@ void Keyscan(){			//call this whenever key status required
 			PinClr(ROW1);		//activate ROW 1 and check both columns
 			PinSet(ROW2);
 			PinSet(ROW3);
-			ParaKey	= !(digitalRead(COL1));
-			RunKey	= !(digitalRead(COL2));
+			 ParaKey	= !(digitalRead(COL1));
+			 RunKey	= !(digitalRead(COL2));
 			
 			//ROW2
 			PinSet(ROW1);
 			PinClr(ROW2);		//activate ROW 2 and check both columns
 			PinSet(ROW3);
-			 StartKey= !(digitalRead(COL1));
+			 StartKey	= !(digitalRead(COL1));
 			 StopKey	= !(digitalRead(COL2));
 			
 			//ROW3
@@ -80,6 +80,54 @@ void Keyscan(){			//call this whenever key status required
 	else
 		ClearKeys();
 }
+
+
+
+void KeyscanWORelese(){			//call this whenever key status required
+
+	if (KeyDetected())	//if both columns are high, then no key is pressed
+	{	//program will enter when any key is pressed
+		delay_ms(debounce_ms);	//debounce delay
+		if (KeyDetected())	//check again
+		{
+			//ROW1
+			PinClr(ROW1);		//activate ROW 1 and check both columns
+			PinSet(ROW2);
+			PinSet(ROW3);
+			ParaKey	= !(digitalRead(COL1));
+			RunKey	= !(digitalRead(COL2));
+			
+			//ROW2
+			PinSet(ROW1);
+			PinClr(ROW2);		//activate ROW 2 and check both columns
+			PinSet(ROW3);
+			StartKey	= !(digitalRead(COL1));
+			StopKey	= !(digitalRead(COL2));
+			
+			//ROW3
+			PinSet(ROW1);		//activate ROW 3 and check both columns
+			PinSet(ROW2);
+			PinClr(ROW3);
+			UpdateKey= !(digitalRead(COL1));
+			EnterKey = !(digitalRead(COL2));
+			//while (KeyDetected())
+			//{
+				//delay_ms(1);	//w8 until all keys are released
+			//}
+		}
+		else
+		ClearKeys();
+	}
+	else
+	ClearKeys();
+}
+
+
+
+void ReleaseKey(){
+
+}
+	
 
 void LoopUntilEnterPressed(void){
 	ClearKeys();
