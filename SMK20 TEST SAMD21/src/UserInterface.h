@@ -7,9 +7,9 @@ int8_t CheckDigitBound(int8_t Num);
 uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col);
 int32_t GetNumDataFromUserWithESC(int32_t CurrentNum, uint8_t DecimalPos, uint8_t NoofDigit,  char Row, char Col);
 
+uint32_t CombineDigitstoNumber1(int8_t Digit[], int8_t NoofDigits);
 
-
-
+void LCD_DispVariable1(uint32_t Number, char DecimalPos, uint8_t NoofDigitsToDisplay, char Row, char Col);
 
 /************************************************************************/
 /* OLD Test Functions                                                */

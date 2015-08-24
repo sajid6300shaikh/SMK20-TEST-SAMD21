@@ -4,6 +4,8 @@
 
 src\ASF\sam0\drivers\sercom\i2c\i2c_samd21_r21_d10_d11_l21\i2c_master.c
 
+src\Calibration.c
+
 src\EEProm.c
 
 src\UserInterface.C

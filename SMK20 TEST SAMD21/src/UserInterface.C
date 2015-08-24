@@ -25,7 +25,7 @@ void LCD_DispVariable(uint32_t Number, char DecimalPos, uint8_t NoofDigitsToDisp
 	
 	LCD_Setcursor(Row, Col);	
 	if (NoofDigitsToDisplay>=7)
-	LCD_DispAscii(Digit[6]);
+	LCD_DispAscii(Digit[6]);				//LSB
 	if (DecimalPos==6)
 	LCD_DataWrite('.');
 	
@@ -59,6 +59,8 @@ void LCD_DispVariable(uint32_t Number, char DecimalPos, uint8_t NoofDigitsToDisp
 	LCD_DispAscii(Digit[0]);
 
 }
+
+
 
 /************************************************************************/
 /* When a Digit is incremented or decremented by User, it should not go above 9 or below 0
@@ -120,7 +122,7 @@ uint32_t CombineDigitstoNumber(int8_t Digit[], int8_t NoofDigits){
 		
 	if (NoofDigits>3)
 		BCD4 = Digit[3]*1000;
-
+		
 	if (NoofDigits>4)
 		BCD5 = Digit[4]*10000;
 	
@@ -133,6 +135,18 @@ uint32_t CombineDigitstoNumber(int8_t Digit[], int8_t NoofDigits){
 
 	return (BCD7+BCD6+BCD5+BCD4+BCD3+BCD2+BCD1);
 }
+
+
+uint32_t CombineDigitstoNumber1(int8_t Digit[], int8_t NoofDigits){
+	uint32_t num=0;
+	while (NoofDigits>0)
+	{
+		num=num*10 + Digit[NoofDigits-1];
+		NoofDigits--;
+	}
+	return num;
+}
+
 
 /************************************************************************/
 /* Gets Numeric data Input from user with the help of Incr, Decr, next and prev Key
@@ -152,6 +166,7 @@ uint32_t GetNumDataFromUser(uint32_t CurrentNum, uint8_t DecimalPos, uint8_t Noo
 	int8_t i=NoofDigit-1;
 	uint8_t NewCol=Col;
 	LCD_Setcursor(Row,NewCol);
+	ReleaseKey();
 	while(1){
 		if (KeyDetected())
 		{
@@ -213,6 +228,7 @@ int32_t GetNumDataFromUserWithESC(int32_t CurrentNum, uint8_t DecimalPos, uint8_
 	int8_t i=NoofDigit-1;
 	uint8_t NewCol=Col;
 	LCD_Setcursor(Row,NewCol);
+	ReleaseKey();
 	while(1){
 		if (KeyDetected())
 		{

@@ -75,10 +75,10 @@ pinMode(LCD_RWb, OUTPUT);
 	checkbusy();  
 	
 	LCD_CmdWrite(0x01);
-	checkbusy();  // Clear the LCD
+	checkbusy();			// Clear the LCD
 	
 	LCD_CmdWrite(0x80);
-	checkbusy();  // Move the Cursor to First line First Position
+	checkbusy();			// Move the Cursor to First line First Position
 	LCD_PowerOn();
 }
 

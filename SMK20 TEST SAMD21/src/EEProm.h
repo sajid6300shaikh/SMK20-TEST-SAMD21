@@ -1,3 +1,9 @@
+
+#ifndef __EEPROM_H__
+#define __EEPROM_H__
+
+
+
 //for SERCOM2
 #define I2C_ADDR	(*(RwReg  *)0x42001024U)
 #define I2C_DATA	(*(RwReg8 *)0x42001028U)
@@ -48,3 +54,4 @@ uint16_t EEP_ReadInt(uint8_t addr);
 bool EEP_ReadBit(uint8_t addr);
 void EEP_WriteBit(uint8_t addr, bool data);
 
+#endif

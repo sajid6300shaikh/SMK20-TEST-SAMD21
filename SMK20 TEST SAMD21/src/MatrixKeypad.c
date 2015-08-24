@@ -15,8 +15,9 @@
 void Config_MatrixKeypad(){	//call this once in your program
 	pinMode(COL1, INPUP);		//Make Columns Input with pull up.
 	pinMode(COL2, INPUP);		//INPUP stands for input with pull up.
-	pinMode(ROW1, OUTPUT);		//Make ROWs as Output
-	pinMode(ROW2, OUTPUT);
+	//Make ROWs as Output
+	pinMode(ROW1, OUTPUT);		
+	pinMode(ROW2, OUTPUT);		
 	pinMode(ROW3, OUTPUT);
 }
 
@@ -124,10 +125,26 @@ void KeyscanWORelese(){			//call this whenever key status required
 
 
 
-void ReleaseKey(){
+void ReleaseKey(void){
+	delay_ms(debounce_ms);
+	while(KeyDetected());
+	delay_ms(debounce_ms);
+}
 
+void WaitforAnyKey(void){
+	delay_ms(debounce_ms);
+	while(!KeyDetected());
+	delay_ms(debounce_ms);
 }
 	
+/************************************************************************/
+/* This function waits for for user to press key and then waits for the key to release*/
+
+/************************************************************************/
+void AnykeyPulse(void){
+	WaitforAnyKey();
+	ReleaseKey();
+}
 
 void LoopUntilEnterPressed(void){
 	ClearKeys();

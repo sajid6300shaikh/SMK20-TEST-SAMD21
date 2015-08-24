@@ -1,3 +1,7 @@
+#ifndef __ExtADC_H__
+#define __ExtADC_H__
+
+
 
 /************************************************************************/
 /* These are various ADC channels */
@@ -16,3 +20,5 @@ typedef volatile enum {// start numbering with 1
 	
 
 int32_t ExtAnalogRead(EnumAdcChannel Channel);
+
+#endif

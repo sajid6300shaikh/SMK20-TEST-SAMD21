@@ -98,6 +98,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.c \
+../src/Calibration.c \
 ../src/EEProm.c \
 ../src/UserInterface.C \
 ../src/ASF/sam0/drivers/sercom/sercom.c \
@@ -138,6 +139,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.o \
+src/Calibration.o \
 src/EEProm.o \
 src/UserInterface.o \
 src/ASF/sam0/drivers/sercom/sercom.o \
@@ -171,6 +173,7 @@ src/Main.o
 
 OBJS_AS_ARGS +=  \
 src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.o \
+src/Calibration.o \
 src/EEProm.o \
 src/UserInterface.o \
 src/ASF/sam0/drivers/sercom/sercom.o \
@@ -204,6 +207,7 @@ src/Main.o
 
 C_DEPS +=  \
 src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.d \
+src/Calibration.d \
 src/EEProm.d \
 src/UserInterface.d \
 src/ASF/sam0/drivers/sercom/sercom.d \
@@ -237,6 +241,7 @@ src/Main.d
 
 C_DEPS_AS_ARGS +=  \
 src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.d \
+src/Calibration.d \
 src/EEProm.d \
 src/UserInterface.d \
 src/ASF/sam0/drivers/sercom/sercom.d \
@@ -284,6 +289,13 @@ LINKER_SCRIPT_DEP+=  \
 
 # AVR32/GNU C Compiler
 src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.o: ../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21/i2c_master.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 4.8.4
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1443\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD21J18A__ -DDEBUG -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DARM_MATH_CM0=true -DUSART_CALLBACK_MODE=true -DI2C_MASTER_CALLBACK_MODE=false  -I"../common2/applications/xplained_pro_user_application/samd21j18a_samd21_xplained_pro/config" -I"../src/ASF/sam0/utils/header_files" -I"../src/ASF/sam0/drivers/system/power/power_sam_d_r" -I"../src/ASF/common/utils" -I"../src/ASF/sam0/drivers/system/pinmux" -I"../src/ASF/sam0/drivers/system/power" -I"../src/ASF/sam0/drivers/system/reset/reset_sam_d_r" -I"../src/ASF/common/boards" -I"../src/ASF/sam0/drivers/port" -I"../src/ASF/sam0/drivers/system/clock/clock_samd21_r21" -I"../src/ASF/sam0/boards" -I"../src/ASF/sam0/utils" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/config" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/sam0/drivers/system/reset" -I"../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21" -I"../src/ASF/sam0/boards/samd21_xplained_pro" -I"../src" -I"../src/ASF/sam0/utils/preprocessor" -I"../src/ASF/sam0/utils/cmsis/samd21/include" -I"../src/ASF/sam0/drivers/system" -I"../src/ASF/sam0/utils/cmsis/samd21/source" -I"../src/ASF/sam0/drivers/system/clock" -I"../src/ASF/sam0/drivers/system/interrupt" -I"../src/ASF/sam0/utils/stdio/stdio_serial" -I"../src/ASF/common/services/serial" -I"../src/ASF/sam0/drivers/sercom" -I"../src/ASF/sam0/drivers/sercom/usart" -I"../src/ASF/sam0/drivers/sercom/i2c" -I"../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m0plus -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+src/Calibration.o: ../src/Calibration.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 4.8.4
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\ARM GCC\Native\4.8.1443\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAMD21J18A__ -DDEBUG -DBOARD=SAMD21_XPLAINED_PRO -D__SAMD21J18A__ -DARM_MATH_CM0=true -DUSART_CALLBACK_MODE=true -DI2C_MASTER_CALLBACK_MODE=false  -I"../common2/applications/xplained_pro_user_application/samd21j18a_samd21_xplained_pro/config" -I"../src/ASF/sam0/utils/header_files" -I"../src/ASF/sam0/drivers/system/power/power_sam_d_r" -I"../src/ASF/common/utils" -I"../src/ASF/sam0/drivers/system/pinmux" -I"../src/ASF/sam0/drivers/system/power" -I"../src/ASF/sam0/drivers/system/reset/reset_sam_d_r" -I"../src/ASF/common/boards" -I"../src/ASF/sam0/drivers/port" -I"../src/ASF/sam0/drivers/system/clock/clock_samd21_r21" -I"../src/ASF/sam0/boards" -I"../src/ASF/sam0/utils" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/config" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/sam0/drivers/system/reset" -I"../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21" -I"../src/ASF/sam0/boards/samd21_xplained_pro" -I"../src" -I"../src/ASF/sam0/utils/preprocessor" -I"../src/ASF/sam0/utils/cmsis/samd21/include" -I"../src/ASF/sam0/drivers/system" -I"../src/ASF/sam0/utils/cmsis/samd21/source" -I"../src/ASF/sam0/drivers/system/clock" -I"../src/ASF/sam0/drivers/system/interrupt" -I"../src/ASF/sam0/utils/stdio/stdio_serial" -I"../src/ASF/common/services/serial" -I"../src/ASF/sam0/drivers/sercom" -I"../src/ASF/sam0/drivers/sercom/usart" -I"../src/ASF/sam0/drivers/sercom/i2c" -I"../src/ASF/sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11_l21"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m0plus -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -68,7 +68,10 @@ void ClearKeys(void);
 bool KeyDetected(void);
 void Config_MatrixKeypad(void);
 void Keyscan(void);
-void KeyscanWORelese();
+void KeyscanWORelese(void);
+void ReleaseKey(void);
 void LoopUntilEnterPressed(void);
+void WaitforAnyKey(void);
+void AnykeyPulse(void);
 
 #endif

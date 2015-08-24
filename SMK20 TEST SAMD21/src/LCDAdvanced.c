@@ -51,7 +51,7 @@ uint8_t LCD_MenuHandle(uint8_t TotalOptions, const char MenuOptions[][LCDCOLS])
 	LCD_DispFourOptionsIncrementingFrom(0, MenuOptions);	//displays Strings from 0 to 3 of the given string 2D array
 	//displays arrow symbol according to location on LCD at 20th Column and Row given by ArrowLoc
 	LCD_DispMenuArrow(ArrowLoc);
-	
+	ReleaseKey();
 	while(1){	//loop forever, this function will be exited by press EnterKey or ParaKey
 		if(KeyDetected())
 		{//comes here when key is pressed
@@ -134,7 +134,7 @@ uint8_t LCD_VerticalScroll(int8_t NoofLinesToScroll){
 	int8_t Pointer= 4-NOL+1;
 	LCD_Setcursor(Pointer,20);
 	LCD_DataWrite(ARROW);
-	
+	ReleaseKey();
 	while(1){	//loop forever, this function will be exited by press EnterKey or ParaKey
 		if(KeyDetected())
 		{//comes here when key is pressed
@@ -175,7 +175,7 @@ uint8_t LCD_VerticalScroll(int8_t NoofLinesToScroll){
 
 
 void LCD_HorizCurPos(char CursorPos, char row1, char col1, char row2, char col2, char row3, char col3){
-	LCD_CursorOn();
+	
 	switch(CursorPos){
 		case 1:
 		LCD_Setcursor(row1,col1);
@@ -201,7 +201,7 @@ void LCD_HorizCurPos(char CursorPos, char row1, char col1, char row2, char col2,
 	If only 2 options are there then keep row3 and col3 zero*/
 /*******************************************************************/
 uint8_t LCD_HorizontalScroll(uint8_t DefaultPosition, char row1, char col1, char row2, char col2, char row3, char col3){
-		
+	LCD_CursorOn();	
 	int8_t NoOfOpt=3;	//by default 3 option are to be scrolled
 	//If row3 is 0 means only 2 options are to be scrolled
 	if (row3==0)			
@@ -210,7 +210,7 @@ uint8_t LCD_HorizontalScroll(uint8_t DefaultPosition, char row1, char col1, char
 	int8_t CurPoint=DefaultPosition;	
 	//Put cursor on default option position
 	LCD_HorizCurPos(DefaultPosition, row1, col1, row2, col2, row3, col3);
-	
+	ReleaseKey();
 	while(1){	//loop forever, this function will be exited by press EnterKey or ParaKey
 		if(KeyDetected())
 		{//comes here when key is pressed
@@ -226,15 +226,17 @@ uint8_t LCD_HorizontalScroll(uint8_t DefaultPosition, char row1, char col1, char
 			{
 				CurPoint--;
 				if (CurPoint<1)
-				CurPoint=NoOfOpt; //if overflows
+					CurPoint=NoOfOpt; //if overflows
 			}
 			
-			else if(EnterKey)
+			else if(EnterKey)				//exit point
 			{
+				LCD_CursorOff();
 				return (CurPoint);
 			}
-			else if (ParaKey)
+			else if (ParaKey)				//exit point
 			{
+				LCD_CursorOff();
 				return 0;
 			}
 			
@@ -242,6 +244,7 @@ uint8_t LCD_HorizontalScroll(uint8_t DefaultPosition, char row1, char col1, char
 
 		}
 	}
+
 }
 
 
